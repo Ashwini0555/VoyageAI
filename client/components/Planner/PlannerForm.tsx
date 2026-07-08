@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { generateTrip } from "@/services/plannerApi";
 
@@ -26,37 +26,44 @@ export default function PlannerForm() {
     interests: [] as string[],
   });
 
+  // Debug: See formData whenever it changes
+  useEffect(() => {
+    console.log("Current formData:", formData);
+  }, [formData]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]:
-        e.target.type === "number"
-          ? Number(e.target.value)
-          : e.target.value,
-    });
+    const { name, value, type } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "number" ? Number(value) : value,
+    }));
   };
 
   const toggleInterest = (interest: string) => {
-    if (formData.interests.includes(interest)) {
-      setFormData({
-        ...formData,
-        interests: formData.interests.filter(
-          (item) => item !== interest
-        ),
-      });
-    } else {
-      setFormData({
-        ...formData,
-        interests: [...formData.interests, interest],
-      });
-    }
+    setFormData((prev) => ({
+      ...prev,
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter((item) => item !== interest)
+        : [...prev.interests, interest],
+    }));
   };
 
   const handleGenerate = async () => {
     try {
-      const result = await generateTrip(formData);
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+      console.log("Sending Data:", {
+        ...formData,
+        user: user._id,
+      });
+
+      const result = await generateTrip({
+        ...formData,
+        user: user._id,
+      });
 
       localStorage.setItem("trip", JSON.stringify(result));
 
@@ -69,16 +76,13 @@ export default function PlannerForm() {
 
   return (
     <div className="mt-12 bg-white rounded-3xl shadow-xl p-10">
-      <h2 className="text-3xl font-bold">
-        Trip Details
-      </h2>
+      <h2 className="text-3xl font-bold">Trip Details</h2>
 
       <p className="text-gray-500 mb-10">
         Fill in your trip information.
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">
-
         <DestinationInput
           value={formData.destination}
           onChange={handleChange}
@@ -113,7 +117,6 @@ export default function PlannerForm() {
           selected={formData.interests}
           toggleInterest={toggleInterest}
         />
-
       </div>
 
       <div className="mt-10">

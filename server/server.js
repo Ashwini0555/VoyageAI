@@ -1,6 +1,7 @@
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const plannerRoutes = require("./routes/plannerRoutes");
+const tripRoutes = require("./routes/tripRoutes");
 const express = require("express");
 const cors = require("cors");
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/planner", plannerRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/trips", tripRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 VoyageAI Backend Running");
