@@ -1,7 +1,9 @@
+require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
+const plannerRoutes = require("./routes/plannerRoutes");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+
 
 const connectDB = require("./config/db");
 
@@ -13,6 +15,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/planner", plannerRoutes);
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
