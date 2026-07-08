@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { generateTrip } from "@/services/plannerApi";
 
 import DestinationInput from "./DestinationInput";
 import BudgetSelect from "./BudgetSelect";
@@ -12,6 +14,8 @@ import Interests from "./Interests";
 import GenerateButton from "./GenerateButton";
 
 export default function PlannerForm() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     destination: "",
     budget: "",
@@ -50,15 +54,21 @@ export default function PlannerForm() {
     }
   };
 
-  const handleGenerate = () => {
-    console.log(formData);
+  const handleGenerate = async () => {
+    try {
+      const result = await generateTrip(formData);
 
-    alert("AI Integration starts in the next module 🚀");
+      localStorage.setItem("trip", JSON.stringify(result));
+
+      router.push("/trip-result");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to generate trip.");
+    }
   };
 
   return (
     <div className="mt-12 bg-white rounded-3xl shadow-xl p-10">
-
       <h2 className="text-3xl font-bold">
         Trip Details
       </h2>
@@ -111,7 +121,6 @@ export default function PlannerForm() {
           onClick={handleGenerate}
         />
       </div>
-
     </div>
   );
 }
