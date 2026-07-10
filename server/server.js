@@ -1,4 +1,5 @@
 require("dotenv").config();
+const foodGuideRoutes = require("./routes/foodGuideRoutes");
 const authRoutes = require("./routes/authRoutes");
 const plannerRoutes = require("./routes/plannerRoutes");
 const tripRoutes = require("./routes/tripRoutes");
@@ -21,6 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/trips", tripRoutes);
 app.use("/api/budget", budgetRoutes);
 app.use("/api/packing", packingRoutes);
+app.use("/api/food-guide", foodGuideRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 VoyageAI Backend Running");

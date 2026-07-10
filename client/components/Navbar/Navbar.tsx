@@ -50,6 +50,9 @@ export default function Navbar() {
           <Link href="/budget">Budget</Link>
 
           <Link href="/my-trips">My Trips</Link>
+          <Link href="/food-guide">
+  AI Food Guide
+</Link>
 
           <span className="font-semibold">
              {user.name || "User"}
