@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import api from "@/services/api";
 
 export default function RegisterForm() {
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,38 +20,45 @@ export default function RegisterForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-
   };
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
 
-  try {
-    const response = await api.post("/auth/register", formData);
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
+    e.preventDefault();
 
-    alert(response.data.message);
+    try {
+      const response = await api.post(
+        "/auth/register",
+        formData
+      );
 
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      preferredBudget: "",
-      favouriteDestination: "",
-      travelStyle: "",
-    });
+      alert("Registration Successful 🎉");
 
-  } catch (error: any) {
-    alert(
-      error.response?.data?.message || "Registration Failed"
-    );
-  }
-};
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        preferredBudget: "",
+        favouriteDestination: "",
+        travelStyle: "",
+      });
+
+      router.push("/login");
+
+    } catch (error: any) {
+      alert(
+        error.response?.data?.message ||
+        "Registration Failed"
+      );
+    }
+  };
+
   return (
-
     <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8">
 
       <h1 className="text-4xl font-bold text-center text-blue-600">
@@ -59,7 +69,11 @@ const handleSubmit = async (e: React.FormEvent) => {
         Join VoyageAI and start planning smarter.
       </p>
 
-<form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 space-y-5"
+      >
+
         <input
           type="text"
           name="name"
@@ -67,6 +81,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           value={formData.name}
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
+          required
         />
 
         <input
@@ -76,6 +91,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           value={formData.email}
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
+          required
         />
 
         <input
@@ -85,6 +101,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           value={formData.password}
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
+          required
         />
 
         <input
@@ -111,7 +128,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
         >
-          <option value="">Travel Style</option>
+          <option value="">Select Travel Style</option>
           <option value="Solo">Solo</option>
           <option value="Family">Family</option>
           <option value="Friends">Friends</option>
@@ -127,8 +144,16 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       </form>
 
+      <div className="text-center mt-6">
+        Already have an account?{" "}
+        <Link
+          href="/login"
+          className="text-blue-600 font-semibold hover:underline"
+        >
+          Login
+        </Link>
+      </div>
+
     </div>
-
   );
-
 }

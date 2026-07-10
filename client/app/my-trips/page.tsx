@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getMyTrips, deleteTrip } from "@/services/tripApi";
+import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 
 export default function MyTripsPage() {
   const [trips, setTrips] = useState<any[]>([]);
@@ -39,6 +40,7 @@ export default function MyTripsPage() {
   };
 
   return (
+    <ProtectedRoute>
     <main className="min-h-screen bg-slate-100 py-10">
       <div className="max-w-6xl mx-auto px-6">
 
@@ -129,5 +131,6 @@ export default function MyTripsPage() {
 
       </div>
     </main>
+    </ProtectedRoute>
   );
 }

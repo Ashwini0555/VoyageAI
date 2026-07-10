@@ -1,20 +1,69 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [user, setUser] = useState<any>({});
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  // Hide navbar on Login & Register pages
+  if (pathname === "/login" || pathname === "/register") {
+    return null;
+  }
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("trip");
+
+    router.push("/login");
+  };
+
   return (
-    <nav className="w-full flex items-center justify-between px-10 py-5 bg-white shadow-md">
-      <h1 className="text-3xl font-bold text-blue-600">
-        VoyageAI
-      </h1>
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
 
-      <ul className="flex gap-8 font-medium">
-        <li className="cursor-pointer hover:text-blue-600">Home</li>
-        <li className="cursor-pointer hover:text-blue-600">Features</li>
-        <li className="cursor-pointer hover:text-blue-600">Trips</li>
-        <li className="cursor-pointer hover:text-blue-600">About</li>
-      </ul>
+        <Link
+          href="/dashboard"
+          className="text-3xl font-bold text-blue-600"
+        >
+          VoyageAI
+        </Link>
 
-      <button className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
-        Login
-      </button>
+        <div className="flex items-center gap-8">
+
+          <Link href="/dashboard">Dashboard</Link>
+
+          <Link href="/planner">Planner</Link>
+
+          <Link href="/my-trips">My Trips</Link>
+
+          <span className="font-semibold">
+            👋 {user.name || "User"}
+          </span>
+
+          <button
+            onClick={logout}
+            className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </div>
     </nav>
   );
 }

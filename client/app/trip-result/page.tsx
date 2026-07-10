@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { getTripById } from "@/services/tripApi";
+import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 
 export default function TripResultPage() {
   const searchParams = useSearchParams();
@@ -57,6 +58,7 @@ export default function TripResultPage() {
   }
 
   return (
+    <ProtectedRoute>
     <main className="min-h-screen bg-gradient-to-br from-sky-100 to-white p-10">
       <div className="max-w-6xl mx-auto">
 
@@ -91,5 +93,6 @@ export default function TripResultPage() {
 
       </div>
     </main>
+    </ProtectedRoute>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import api from "@/services/api";
 
 export default function LoginForm() {
-
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -25,11 +25,9 @@ export default function LoginForm() {
   const handleSubmit = async (
     e: React.FormEvent
   ) => {
-
     e.preventDefault();
 
     try {
-
       const response = await api.post(
         "/auth/login",
         formData
@@ -48,22 +46,16 @@ export default function LoginForm() {
       alert("Login Successful 🎉");
 
       router.push("/dashboard");
-
     } catch (error: any) {
-
       alert(
         error.response?.data?.message ||
-          "Login Failed"
+        "Login Failed"
       );
-
     }
-
   };
 
   return (
-
     <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
-
       <h1 className="text-4xl font-bold text-center text-blue-600">
         Welcome Back
       </h1>
@@ -76,7 +68,6 @@ export default function LoginForm() {
         onSubmit={handleSubmit}
         className="mt-8 space-y-5"
       >
-
         <input
           type="email"
           name="email"
@@ -84,6 +75,7 @@ export default function LoginForm() {
           value={formData.email}
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
+          required
         />
 
         <input
@@ -93,19 +85,26 @@ export default function LoginForm() {
           value={formData.password}
           onChange={handleChange}
           className="w-full border rounded-xl p-3"
+          required
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition"
         >
           Login
         </button>
 
+        <div className="text-center mt-6">
+          Don't have an account?{" "}
+          <Link
+            href="/register"
+            className="text-blue-600 font-semibold hover:underline"
+          >
+            Register
+          </Link>
+        </div>
       </form>
-
     </div>
-
   );
-
 }

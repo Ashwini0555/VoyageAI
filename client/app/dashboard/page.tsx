@@ -1,108 +1,105 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import ProtectedRoute from "@/components/Auth/ProtectedRoute";
 
-export default function Dashboard() {
+export default function DashboardPage() {
+  const [user, setUser] = useState<any>({});
 
-  const router = useRouter();
+useEffect(() => {
+  const savedUser = localStorage.getItem("user");
 
-  const [user, setUser] = useState<any>(null);
+  if (savedUser) {
+    setUser(JSON.parse(savedUser));
+  }
+}, []);
 
-  useEffect(() => {
-
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-
-      router.push("/login");
-
-      return;
-
-    }
-
-    const storedUser = localStorage.getItem("user");
-
-    if (storedUser) {
-
-      setUser(JSON.parse(storedUser));
-
-    }
-
-  }, []);
-
-  const logout = () => {
-
-    localStorage.removeItem("token");
-
-    localStorage.removeItem("user");
-
-    router.push("/login");
-
-  };
+  const cards = [
+    {
+      title: "AI Planner",
+      icon: "✈️",
+      link: "/planner",
+      color: "bg-blue-500",
+    },
+    {
+      title: "My Trips",
+      icon: "🧳",
+      link: "/my-trips",
+      color: "bg-green-500",
+    },
+    {
+      title: "Budget Planner",
+      icon: "💰",
+      link: "#",
+      color: "bg-yellow-500",
+    },
+    {
+      title: "Packing Assistant",
+      icon: "🎒",
+      link: "#",
+      color: "bg-purple-500",
+    },
+    {
+      title: "Maps & Weather",
+      icon: "🌦️",
+      link: "#",
+      color: "bg-cyan-500",
+    },
+    {
+      title: "Voice Assistant",
+      icon: "🎤",
+      link: "#",
+      color: "bg-pink-500",
+    },
+  ];
 
   return (
+     <ProtectedRoute>
+    <main className="min-h-screen bg-slate-100">
 
-    <main className="min-h-screen bg-slate-100 p-10">
+      <div className="max-w-7xl mx-auto p-10">
 
-      <div className="flex justify-between items-center">
+        <h1 className="text-5xl font-bold">
+          Welcome back, {user.name} 👋
+        </h1>
 
-        <div>
+        <p className="text-gray-600 mt-3 text-lg">
+          Plan your next adventure with AI.
+        </p>
 
-          <h1 className="text-4xl font-bold">
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
 
-            Welcome {user?.name} 👋
+          {cards.map((card) => (
 
-          </h1>
+            <Link
+              key={card.title}
+              href={card.link}
+            >
 
-          <p className="text-gray-600 mt-2">
-            Ready for your next adventure?
-          </p>
+              <div className="bg-white rounded-3xl shadow-xl p-8 hover:scale-105 duration-300 cursor-pointer">
 
-        </div>
+                <div
+                  className={`${card.color} w-16 h-16 rounded-2xl flex items-center justify-center text-3xl text-white`}
+                >
+                  {card.icon}
+                </div>
 
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-5 py-2 rounded-lg"
-        >
-          Logout
-        </button>
+                <h2 className="text-2xl font-bold mt-6">
+                  {card.title}
+                </h2>
 
-      </div>
+              </div>
 
-      <div className="grid md:grid-cols-3 gap-8 mt-12">
+            </Link>
 
-       <div
-  onClick={() => router.push("/planner")}
-  className="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:scale-105 transition"
->
-  🤖 AI Trip Planner
-</div>
+          ))}
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          💰 Budget Planner
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          🎒 Packing Assistant
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          🌦 Weather
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          📍 Hidden Gems
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          🎤 AI Voice Assistant
         </div>
 
       </div>
 
     </main>
-
+    </ProtectedRoute>
   );
-
 }
