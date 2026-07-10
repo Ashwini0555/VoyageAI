@@ -10,7 +10,7 @@ export default function TravelersInput({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        👥 Travelers
+         Travelers
       </label>
 
       <input

@@ -10,7 +10,7 @@ export default function DestinationInput({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        🌍 Destination
+         Destination
       </label>
 
       <input

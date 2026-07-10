@@ -12,7 +12,7 @@ export default function PlannerPage() {
         <div className="text-center">
 
           <h1 className="text-5xl font-bold text-blue-700">
-            🌍 AI Trip Planner
+             AI Trip Planner
           </h1>
 
           <p className="text-gray-600 mt-4 text-lg">

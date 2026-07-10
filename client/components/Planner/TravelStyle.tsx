@@ -10,7 +10,7 @@ export default function TravelStyle({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        ✈️ Travel Style
+         Travel Style
       </label>
 
       <select

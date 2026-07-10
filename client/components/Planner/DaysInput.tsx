@@ -10,7 +10,7 @@ export default function DaysInput({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        📅 Number of Days
+         Number of Days
       </label>
 
       <input

@@ -10,7 +10,7 @@ export default function DateInput({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        📅 Start Date
+         Start Date
       </label>
 
       <input

@@ -45,7 +45,7 @@ export default function MyTripsPage() {
       <div className="max-w-6xl mx-auto px-6">
 
         <h1 className="text-5xl font-bold mb-10">
-          🧳 My Trips
+           My Trips
         </h1>
 
         {trips.length === 0 ? (
@@ -76,51 +76,58 @@ export default function MyTripsPage() {
               >
 
                 <h2 className="text-3xl font-bold mb-6">
-                  📍 {trip.destination}
+                   {trip.destination}
                 </h2>
 
                 <div className="space-y-2 text-lg">
 
                   <p>
-                    💰 <strong>Budget:</strong> {trip.budget}
+                     <strong>Budget:</strong> {trip.budget}
                   </p>
 
                   <p>
-                    📅 <strong>Days:</strong> {trip.days}
+                     <strong>Days:</strong> {trip.days}
                   </p>
 
                   <p>
-                    ✈ <strong>Style:</strong> {trip.travelStyle}
+                     <strong>Style:</strong> {trip.travelStyle}
                   </p>
 
                   <p>
-                    👥 <strong>Travelers:</strong> {trip.travelers}
+                     <strong>Travelers:</strong> {trip.travelers}
                   </p>
 
                   <p>
-                    ❤️ <strong>Interests:</strong>{" "}
+                     <strong>Interests:</strong>{" "}
                     {trip.interests.join(", ")}
                   </p>
 
                 </div>
 
-                <div className="flex gap-4 mt-8">
+               <div className="grid grid-cols-3 gap-4 mt-8">
 
-                  <Link
-                    href={`/trip-result?id=${trip._id}`}
-                    className="flex-1 bg-blue-600 text-white py-3 rounded-xl text-center"
-                  >
-                    View Trip
-                  </Link>
+  <Link
+    href={`/trip-result?id=${trip._id}`}
+    className="bg-blue-600 text-white py-3 rounded-xl text-center hover:bg-blue-700 transition"
+  >
+    View
+  </Link>
 
-                  <button
-                    onClick={() => handleDelete(trip._id)}
-                    className="flex-1 bg-red-600 text-white py-3 rounded-xl"
-                  >
-                    Delete
-                  </button>
+  <Link
+    href={`/budget/${trip._id}`}
+    className="bg-green-600 text-white py-3 rounded-xl text-center hover:bg-green-700 transition"
+  >
+    Budget
+  </Link>
 
-                </div>
+  <button
+    onClick={() => handleDelete(trip._id)}
+    className="bg-red-600 text-white py-3 rounded-xl hover:bg-red-700 transition"
+  >
+    Delete
+  </button>
+
+</div>
 
               </div>
 

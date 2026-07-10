@@ -10,7 +10,7 @@ export default function BudgetSelect({
   return (
     <div>
       <label className="block mb-2 text-lg font-semibold text-gray-700">
-        💰 Budget
+         Budget
       </label>
 
       <select

@@ -47,11 +47,12 @@ export default function Navbar() {
           <Link href="/dashboard">Dashboard</Link>
 
           <Link href="/planner">Planner</Link>
+          <Link href="/budget">Budget</Link>
 
           <Link href="/my-trips">My Trips</Link>
 
           <span className="font-semibold">
-            👋 {user.name || "User"}
+             {user.name || "User"}
           </span>
 
           <button

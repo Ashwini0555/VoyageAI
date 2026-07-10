@@ -18,40 +18,46 @@ useEffect(() => {
   const cards = [
     {
       title: "AI Planner",
-      icon: "✈️",
+      icon: "",
       link: "/planner",
       color: "bg-blue-500",
     },
     {
       title: "My Trips",
-      icon: "🧳",
+      icon: "",
       link: "/my-trips",
       color: "bg-green-500",
     },
     {
       title: "Budget Planner",
-      icon: "💰",
+      icon: "",
       link: "#",
       color: "bg-yellow-500",
     },
     {
       title: "Packing Assistant",
-      icon: "🎒",
+      icon: "",
       link: "#",
       color: "bg-purple-500",
     },
     {
       title: "Maps & Weather",
-      icon: "🌦️",
+      icon: "",
       link: "#",
       color: "bg-cyan-500",
     },
     {
       title: "Voice Assistant",
-      icon: "🎤",
+      icon: "",
       link: "#",
       color: "bg-pink-500",
     },
+    {
+  title: "Budget Planner",
+  icon: "",
+  link: "/budget",
+  color: "bg-yellow-500",
+},
   ];
 
   return (
@@ -61,7 +67,7 @@ useEffect(() => {
       <div className="max-w-7xl mx-auto p-10">
 
         <h1 className="text-5xl font-bold">
-          Welcome back, {user.name} 👋
+          Welcome back, {user.name} 
         </h1>
 
         <p className="text-gray-600 mt-3 text-lg">

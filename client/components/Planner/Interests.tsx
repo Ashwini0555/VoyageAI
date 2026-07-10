@@ -21,7 +21,7 @@ export default function Interests({
   return (
     <div className="md:col-span-2">
       <label className="block mb-4 text-lg font-semibold text-gray-700">
-        ❤️ Choose Your Interests
+         Choose Your Interests
       </label>
 
       <div className="flex flex-wrap gap-3">
