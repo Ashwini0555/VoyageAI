@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -53,6 +54,7 @@ export default function Navbar() {
           <Link href="/food-guide">
   AI Food Guide
 </Link>
+<Link href="/assistant">Assistant</Link>
 
           <span className="font-semibold">
              {user.name || "User"}

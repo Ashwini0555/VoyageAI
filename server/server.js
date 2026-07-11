@@ -8,6 +8,7 @@ const cors = require("cors");
 const packingRoutes = require("./routes/packingRoutes");
 const budgetRoutes = require("./routes/budgetRoutes");
 const connectDB = require("./config/db");
+const assistantRoutes = require("./routes/assistantRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/trips", tripRoutes);
 app.use("/api/budget", budgetRoutes);
 app.use("/api/packing", packingRoutes);
 app.use("/api/food-guide", foodGuideRoutes);
+app.use("/api/assistant", assistantRoutes);
 
 app.get("/", (req, res) => {
   res.send("🚀 VoyageAI Backend Running");
